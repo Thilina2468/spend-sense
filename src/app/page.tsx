@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main className="flex items-center justify-center min-h-screen bg-white dark:bg-black">
@@ -11,9 +13,11 @@ export default function Home() {
         <p className="text-lg mb-8 text-gray-600 dark:text-gray-400">
           Track expenses scattered across cash, cards, and subscriptions. Get monthly breakdowns by category and understand your spending patterns at a glance.
         </p>
-        <button className="px-8 py-3 bg-black dark:bg-white text-white dark:text-black rounded-lg font-semibold hover:opacity-80 transition">
-          Get Started
-        </button>
+        <Link href="/register">
+          <button className="px-8 py-3 bg-black dark:bg-white text-white dark:text-black rounded-lg font-semibold hover:opacity-80 transition">
+            Get Started
+          </button>
+        </Link>
       </div>
     </main>
   );
