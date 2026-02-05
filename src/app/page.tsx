@@ -13,7 +13,7 @@ export default function Home() {
         <p className="text-lg mb-8 text-gray-600 dark:text-gray-400">
           Track expenses scattered across cash, cards, and subscriptions. Get monthly breakdowns by category and understand your spending patterns at a glance.
         </p>
-        <Link href="/register">
+        <Link href="/auth">
           <button className="px-8 py-3 bg-black dark:bg-white text-white dark:text-black rounded-lg font-semibold hover:opacity-80 transition">
             Get Started
           </button>

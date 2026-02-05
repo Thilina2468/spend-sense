@@ -58,8 +58,11 @@ export async function POST(req: Request) {
       createdAt: serverTimestamp(),
     });
 
+    const token = await user.getIdToken();
+    console.log("Registration successful for user:", user.uid, user.email);
+    
     return Response.json(
-      { success: true, uid: user.uid, email: user.email },
+      { success: true, uid: user.uid, email: user.email, token },
       { status: 201 }
     );
   } catch (error: any) {
