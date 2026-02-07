@@ -9,7 +9,12 @@ export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  const isActive = (path: string) => pathname === path || pathname.startsWith(path + '/');
+  const isActive = (path: string) => {
+    if (path === '/dashboard') {
+      return pathname === '/dashboard';
+    }
+    return pathname.startsWith(path);
+  };
 
   const navItems = [
     { label: 'Overview', href: '/dashboard', icon: <BiHome size={20} /> },
@@ -44,8 +49,8 @@ export default function MobileNav() {
                 onClick={() => setIsOpen(false)}
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all-smooth ${
                   active
-                    ? 'bg-gradient-to-r from-neon-green/20 to-neon-cyan/10 text-neon-green border border-neon-green/50'
-                    : 'text-gray-400 hover:text-white hover:bg-dark-bg'
+                    ? 'bg-gradient-to-r from-neon-green/20 to-neon-cyan/10 text-neon-green'
+                    : 'text-gray-400 hover:text-white hover:bg-white/10'
                 }`}
               >
                 {item.icon}
