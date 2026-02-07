@@ -15,14 +15,14 @@ type Props = {
 export default function DeleteConfirmDialog({ open, title, description, onConfirm, onCancel, isLoading = false }: Props) {
   return (
     <Dialog open={open} onOpenChange={onCancel}>
-      <DialogContent className="bg-dark-card border-dark-border">
+      <DialogContent className="bg-dark-card/40 backdrop-blur-md border-dark-border/30">
         <DialogHeader>
           <DialogTitle className="text-white">{title}</DialogTitle>
           <DialogDescription className="text-gray-400">{description}</DialogDescription>
         </DialogHeader>
 
         <DialogFooter>
-          <Button variant="outline" onClick={onCancel} disabled={isLoading} className="border-dark-border hover:bg-dark-bg">
+          <Button variant="outline" onClick={onCancel} disabled={isLoading} className="border-dark-border/30 hover:bg-white/10">
             Cancel
           </Button>
           <Button

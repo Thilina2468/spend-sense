@@ -12,7 +12,7 @@ type Props = {
 
 export default function StatsCard({ title, value, icon, trend, className = '' }: Props) {
   return (
-    <div className={`bg-dark-card border border-dark-border rounded-xl p-6 transition-all-smooth hover:border-neon-green hover:shadow-neon-green ${className}`}>
+    <div className={`bg-dark-card/40 backdrop-blur-md border border-dark-border/30 rounded-xl p-6 transition-all-smooth hover:bg-dark-card/60 hover:border-neon-green/50 hover:shadow-neon-green ${className}`}>
       <div className="flex justify-between items-start mb-4">
         <div className="flex-1">
           <p className="text-gray-400 text-sm mb-2">{title}</p>
