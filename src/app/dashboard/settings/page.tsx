@@ -31,9 +31,9 @@ export default function SettingsPage() {
         <p className="text-gray-400">Manage your account and preferences</p>
       </div>
 
-      <div className="bg-dark-card border border-dark-border rounded-xl p-6 space-y-6">
+      <div className="bg-dark-card/40 backdrop-blur-md border border-dark-border/30 rounded-xl p-6 space-y-6">
         <div>
-          <h2 className="text-xl font-semibold text-white mb-4 pb-4 border-b border-dark-border">Profile Information</h2>
+          <h2 className="text-xl font-semibold text-white mb-4 pb-4 border-b border-dark-border/30">Profile Information</h2>
 
           <div className="space-y-4">
             <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-neon-green to-neon-cyan flex items-center justify-center text-2xl font-bold text-white">
@@ -42,12 +42,12 @@ export default function SettingsPage() {
 
             <div>
               <Label className="text-gray-300">Username</Label>
-              <Input value={mockUser.username} disabled className="mt-2 bg-dark-bg border-dark-border text-gray-300 cursor-not-allowed" />
+              <Input value={mockUser.username} disabled className="mt-2 bg-dark-bg/50 border-dark-border/30 text-gray-300 cursor-not-allowed" />
             </div>
 
             <div>
               <Label className="text-gray-300">Email</Label>
-              <Input value={mockUser.email} disabled className="mt-2 bg-dark-bg border-dark-border text-gray-300 cursor-not-allowed" />
+              <Input value={mockUser.email} disabled className="mt-2 bg-dark-bg/50 border-dark-border/30 text-gray-300 cursor-not-allowed" />
             </div>
 
             <div>
@@ -55,16 +55,16 @@ export default function SettingsPage() {
               <Input
                 value={new Date(mockUser.joinDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                 disabled
-                className="mt-2 bg-dark-bg border-dark-border text-gray-300 cursor-not-allowed"
+                className="mt-2 bg-dark-bg/50 border-dark-border/30 text-gray-300 cursor-not-allowed"
               />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="bg-dark-card border border-dark-border rounded-xl p-6 space-y-6">
+      <div className="bg-dark-card/40 backdrop-blur-md border border-dark-border/30 rounded-xl p-6 space-y-6">
         <div>
-          <h2 className="text-xl font-semibold text-white mb-4 pb-4 border-b border-dark-border">Preferences</h2>
+          <h2 className="text-xl font-semibold text-white mb-4 pb-4 border-b border-dark-border/30">Preferences</h2>
 
           <div className="space-y-4">
             <div>
@@ -72,10 +72,10 @@ export default function SettingsPage() {
                 Currency
               </Label>
               <Select value={currency} onValueChange={setCurrency}>
-                <SelectTrigger className="mt-2 bg-dark-bg border-dark-border text-white">
+                <SelectTrigger className="mt-2 bg-dark-bg/50 border-dark-border/30 text-white">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-dark-card border-dark-border">
+                <SelectContent className="bg-dark-card/40 backdrop-blur-md border-dark-border/30">
                   <SelectItem value="USD" className="text-white hover:bg-dark-bg">
                     USD ($)
                   </SelectItem>
@@ -97,10 +97,10 @@ export default function SettingsPage() {
                 Date Format
               </Label>
               <Select value={dateFormat} onValueChange={setDateFormat}>
-                <SelectTrigger className="mt-2 bg-dark-bg border-dark-border text-white">
+                <SelectTrigger className="mt-2 bg-dark-bg/50 border-dark-border/30 text-white">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-dark-card border-dark-border">
+                <SelectContent className="bg-dark-card/40 backdrop-blur-md border-dark-border/30">
                   <SelectItem value="MM/DD/YYYY" className="text-white hover:bg-dark-bg">
                     MM/DD/YYYY
                   </SelectItem>
@@ -118,8 +118,8 @@ export default function SettingsPage() {
               <Button
                 onClick={handleSaveSettings}
                 className={`w-full flex items-center justify-center gap-2 transition-all-smooth ${
-                  saved ? 'bg-neon-green hover:bg-neon-green/90' : 'bg-neon-blue hover:bg-neon-blue/90'
-                } text-black font-semibold`}
+                  saved ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-blue-500 hover:bg-blue-600'
+                } text-white font-semibold`}
               >
                 {saved && <BiCheck size={20} />}
                 {saved ? 'Settings Saved!' : 'Save Preferences'}
