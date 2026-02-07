@@ -30,11 +30,9 @@ export default function SignInForm({ isSignIn, loading, setLoading, toggleForm, 
         return
       }
 
-      // Save token to localStorage
       localStorage.setItem('authToken', data.token)
       localStorage.setItem('userId', data.userId)
 
-      // Redirect to dashboard
       router.push('/dashboard')
     } catch (err) {
       setError('Something went wrong')

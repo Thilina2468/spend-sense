@@ -17,7 +17,6 @@ export default function SignUpForm({ isSignIn, loading, setLoading, toggleForm, 
     e.preventDefault()
     setError('')
 
-    // Validate passwords match
     if (password !== confirmPassword) {
       setError('Passwords do not match')
       return
@@ -40,11 +39,9 @@ export default function SignUpForm({ isSignIn, loading, setLoading, toggleForm, 
         return
       }
 
-      // Save token to localStorage
       localStorage.setItem('authToken', data.token)
       localStorage.setItem('userId', data.userId)
 
-      // Redirect to dashboard
       router.push('/dashboard')
     } catch (err) {
       setError('Something went wrong')
