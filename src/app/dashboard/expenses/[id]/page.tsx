@@ -55,7 +55,7 @@ export default function ExpenseDetailPage({ params }: { params: { id: string } }
         <BiArrowBack /> Back
       </Button>
 
-      <div className="bg-dark-card border border-dark-border rounded-xl p-8 space-y-6">
+      <div className="bg-dark-card/40 backdrop-blur-md border border-dark-border/30 rounded-xl p-8 space-y-6">
         <div className="flex items-start justify-between">
           <div>
             <p className="text-gray-400 text-sm mb-2">Amount</p>
@@ -64,13 +64,13 @@ export default function ExpenseDetailPage({ params }: { params: { id: string } }
           <div className="flex gap-2">
             <Button
               onClick={() => setFormOpen(true)}
-              className="bg-neon-blue/10 hover:bg-neon-blue/20 text-neon-blue border border-neon-blue/50 flex items-center gap-2"
+              className="bg-neon-blue/10 hover:bg-neon-blue/20 text-neon-blue border border-neon-blue/30 flex items-center gap-2"
             >
               <BiEdit /> Edit
             </Button>
             <Button
               onClick={() => setDeleteOpen(true)}
-              className="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/50 flex items-center gap-2"
+              className="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 flex items-center gap-2"
             >
               <BiTrash /> Delete
             </Button>
