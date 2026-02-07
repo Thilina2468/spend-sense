@@ -22,7 +22,7 @@ export default function ExpenseCard({ expense, onEdit, onDelete }: Props) {
   };
 
   return (
-    <div className="bg-dark-card border border-dark-border rounded-lg p-4 space-y-4">
+    <div className="bg-dark-card/40 backdrop-blur-md border border-dark-border/30 rounded-lg p-4 space-y-4">
       <div className="flex justify-between items-start">
         <div>
           <p className="text-2xl font-bold text-neon-green">${expense.amount.toFixed(2)}</p>
@@ -38,14 +38,14 @@ export default function ExpenseCard({ expense, onEdit, onDelete }: Props) {
       <div className="flex gap-2 pt-2">
         <button
           onClick={onEdit}
-          className="flex-1 flex items-center justify-center gap-2 py-2 px-3 bg-neon-blue/10 hover:bg-neon-blue/20 border border-neon-blue/50 rounded-lg text-neon-blue transition-all-smooth text-sm"
+          className="flex-1 flex items-center justify-center gap-2 py-2 px-3 bg-neon-blue/10 hover:bg-neon-blue/30 border border-neon-blue/30 rounded-lg text-neon-blue transition-all-smooth text-sm"
         >
           <BiEdit size={16} />
           Edit
         </button>
         <button
           onClick={onDelete}
-          className="flex-1 flex items-center justify-center gap-2 py-2 px-3 bg-red-500/10 hover:bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 transition-all-smooth text-sm"
+          className="flex-1 flex items-center justify-center gap-2 py-2 px-3 bg-red-500/10 hover:bg-red-500/30 border border-red-500/30 rounded-lg text-red-400 transition-all-smooth text-sm"
         >
           <BiTrash size={16} />
           Delete

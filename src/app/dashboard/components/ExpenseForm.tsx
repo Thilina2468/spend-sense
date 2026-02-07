@@ -65,7 +65,7 @@ export default function ExpenseForm({ open, mode, expense, onSave, onClose }: Pr
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="bg-dark-card border-dark-border">
+      <DialogContent className="bg-dark-card/40 backdrop-blur-md border-dark-border/30">
         <DialogHeader>
           <DialogTitle className="text-white">{mode === 'add' ? 'Add Expense' : 'Edit Expense'}</DialogTitle>
         </DialogHeader>
@@ -82,7 +82,7 @@ export default function ExpenseForm({ open, mode, expense, onSave, onClose }: Pr
               step="0.01"
               value={formData.amount}
               onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-              className="mt-2 bg-dark-bg border-dark-border text-white placeholder-gray-600"
+              className="mt-2 bg-dark-bg/50 border-dark-border/30 text-white placeholder-gray-600"
               required
             />
           </div>
@@ -92,10 +92,10 @@ export default function ExpenseForm({ open, mode, expense, onSave, onClose }: Pr
               Category
             </Label>
             <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value })}>
-              <SelectTrigger className="mt-2 bg-dark-bg border-dark-border text-white">
+              <SelectTrigger className="mt-2 bg-dark-bg/50 border-dark-border/30 text-white">
                 <SelectValue placeholder="Select category" />
               </SelectTrigger>
-              <SelectContent className="bg-dark-card border-dark-border">
+              <SelectContent className="bg-dark-card/40 backdrop-blur-md border-dark-border/30">
                 {mockCategories.map((cat) => (
                   <SelectItem key={cat.id} value={cat.name} className="bg-dark-card text-white hover:bg-dark-bg">
                     {cat.icon} {cat.name}
@@ -115,7 +115,7 @@ export default function ExpenseForm({ open, mode, expense, onSave, onClose }: Pr
               placeholder="What did you spend on?"
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              className="mt-2 bg-dark-bg border-dark-border text-white placeholder-gray-600"
+              className="mt-2 bg-dark-bg/50 border-dark-border/30 text-white placeholder-gray-600"
               required
             />
           </div>
@@ -135,10 +135,10 @@ export default function ExpenseForm({ open, mode, expense, onSave, onClose }: Pr
           </div>
 
           <DialogFooter className="pt-4">
-            <Button variant="outline" onClick={onClose} className="border-dark-border hover:bg-dark-bg text-gray-300">
+            <Button variant="outline" onClick={onClose} className="border-dark-border/30 hover:bg-dark-bg/30 text-gray-300">
               Cancel
             </Button>
-            <Button type="submit" className="bg-neon-green hover:bg-neon-green/90 text-black font-semibold">
+            <Button type="submit" className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold">
               {mode === 'add' ? 'Add Expense' : 'Update Expense'}
             </Button>
           </DialogFooter>
