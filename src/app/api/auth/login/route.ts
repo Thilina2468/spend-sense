@@ -17,6 +17,6 @@ export async function POST(req: Request){
 
     } catch (error: any) {
         console.error("Login error:", error);
-        return Response.json({ error: error?.message || "Login failed" }, { status: 401 });
+        return Response.json({ error: error?.message || "Login failed" }, { status: 400 });
     }
 }

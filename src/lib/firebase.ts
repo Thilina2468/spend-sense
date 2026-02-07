@@ -20,7 +20,6 @@ const firebaseConfig = {
   measurementId: getRequiredEnv("NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID"),
 };
 
-// Prevent re-initializing during Next dev/hot reload
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
