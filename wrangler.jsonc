@@ -1,0 +1,12 @@
+{
+  "name": "spend-sense",
+  "account_id": "2ce75b989d22eb7c80aa3c038da29310",
+  "compatibility_date": "2024-01-01",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "spend-sense-db",
+      "database_id": "51e9d589-12c4-403d-9688-2e54ff699faf"
+    }
+  ]
+}

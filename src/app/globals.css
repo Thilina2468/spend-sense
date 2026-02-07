@@ -4,6 +4,8 @@
 :root {
   --primary-color: #4EA685;
   --secondary-color: #57B894;
+  --gray-color: #efefef;
+  --gray-text: #757575;
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -11,6 +13,83 @@
 }
 
 * {
-    font-family: var(--font-poppins);
+  font-family: var(--font-poppins);
 }
 
+/* Auth Form Styles */
+@layer components {
+  .input-group {
+    @apply relative w-full my-4;
+  }
+
+  .input-icon {
+    @apply absolute top-1/2 left-4 -translate-y-1/2 text-[1.4rem] text-[#757575];
+  }
+
+  .form-input {
+    @apply w-full p-4 pl-12 pr-12 text-base bg-[#efefef] rounded-lg border border-white outline-none focus:border-[#4EA685] transition-colors duration-300;
+  }
+
+  .form-button {
+    @apply w-full cursor-pointer py-2.5 px-0 rounded-lg border-none bg-[#4EA685] text-white text-lg font-semibold hover:opacity-90 transition-opacity disabled:opacity-70;
+  }
+
+  .social-icon {
+    @apply flex items-center justify-center p-1.75 mx-2 rounded-lg cursor-pointer text-white hover:scale-110 transition-transform duration-400;
+  }
+
+  .form-container {
+    @apply w-full max-w-[28rem] transition-all duration-500 delay-1000 ease-in-out origin-center transform;
+  }
+
+  .form-wrapper {
+    @apply bg-white p-4 rounded-3xl w-full text-center;
+  }
+
+  .form-title {
+    @apply text-2xl font-bold mb-4;
+  }
+
+  .form-label {
+    @apply text-xs my-4;
+  }
+
+  .form-toggle-text {
+    @apply text-sm mt-4;
+  }
+
+  .form-toggle-link {
+    @apply pl-3 cursor-pointer font-semibold text-[#4EA685] hover:opacity-80;
+  }
+
+  .form-forgot-password {
+    @apply my-2 text-right text-xs;
+  }
+
+  .form-forgot-link {
+    @apply cursor-pointer font-semibold text-[#757575] hover:text-[#4EA685];
+  }
+
+  .eye-toggle-btn {
+    @apply absolute top-1/2 right-4 -translate-y-1/2 text-[1.4rem] text-[#757575] hover:text-[#4EA685] cursor-pointer;
+  }
+
+  .google-icon-wrapper {
+    @apply flex justify-center my-8;
+  }
+
+  .google-icon {
+    @apply bg-[#DB4437];
+  }
+}
+
+/* Form Show/Hide States */
+.sign-in .form-container.sign-in,
+.sign-up .form-container.sign-up {
+  @apply scale-100;
+}
+
+.sign-in .form-container.sign-up,
+.sign-up .form-container.sign-in {
+  @apply scale-0 fixed pointer-events-none;
+}

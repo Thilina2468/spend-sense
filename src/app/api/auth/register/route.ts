@@ -1,74 +1,99 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
-import { auth, db } from "@/lib/firebase";
+import { NextRequest, NextResponse } from 'next/server';
+import { getRequestContext } from '@cloudflare/next-on-pages';
+import { getDb, getUserByUsername, getUserByEmail, createUser } from '@/lib/db';
+import { hashPassword, generateToken } from '@/lib/auth';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function validatePassword(password: string): string | null {
-  if (password.length < 8) {
-    return "Password must be at least 8 characters";
-  }
-  if (!/[A-Z]/.test(password)) {
-    return "Password must contain an uppercase letter";
-  }
-  if (!/[a-z]/.test(password)) {
-    return "Password must contain a lowercase letter";
-  }
-  if (!/[0-9]/.test(password)) {
-    return "Password must contain a number";
-  }
-  return null;
-}
-
-function getErrorMessage(errorCode?: string): string {
-  switch (errorCode) {
-    case "auth/email-already-in-use":
-      return "This email is already registered";
-    case "auth/invalid-email":
-      return "The email address is invalid";
-    case "auth/weak-password":
-      return "The password is too weak";
-    default:
-      return "Registration failed. Please try again later";
-  }
-}
-
-export async function POST(req: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const { name, email, password } = await req.json();
+    const body = await request.json();
+    const { username, email, password } = body;
 
-    if (!name || !email || !password) {
-      return Response.json({ error: "Name, email and password required" }, { status: 400 });
+    // Validate input
+    if (!username || !email || !password) {
+      return NextResponse.json(
+        { error: 'Username, email, and password are required' },
+        { status: 400 }
+      );
     }
 
+    // Validate email format
     if (!EMAIL_REGEX.test(email)) {
-      return Response.json({ error: "Invalid email format" }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Invalid email format' },
+        { status: 400 }
+      );
     }
 
-    const passwordError = validatePassword(password);
-    if (passwordError) {
-      return Response.json({ error: passwordError }, { status: 400 });
+    // Validate password length
+    if (password.length < 6) {
+      return NextResponse.json(
+        { error: 'Password must be at least 6 characters' },
+        { status: 400 }
+      );
     }
 
-    const { user } = await createUserWithEmailAndPassword(auth, email, password);
+    // Get Cloudflare environment
+    const env = getRequestContext().env as any;
+    const db = getDb(env.DB);
+    const jwtSecret = env.JWT_SECRET;
 
-    await setDoc(doc(db, "users", user.uid), {
-      name: name,
-      email: user.email,
-      createdAt: serverTimestamp(),
+    // Check if username already exists
+    const existingUser = await getUserByUsername(db, username);
+    if (existingUser) {
+      return NextResponse.json(
+        { error: 'Username already taken' },
+        { status: 400 }
+      );
+    }
+
+    // Check if email already exists
+    const existingEmail = await getUserByEmail(db, email);
+    if (existingEmail) {
+      return NextResponse.json(
+        { error: 'Email already registered' },
+        { status: 400 }
+      );
+    }
+
+    // Hash password
+    const passwordHash = await hashPassword(password);
+
+    // Create user
+    const newUser = await createUser(db, {
+      username,
+      email,
+      passwordHash,
     });
 
-    const token = await user.getIdToken();
-    console.log("Registration successful for user:", user.uid, user.email);
-    
-    return Response.json(
-      { success: true, uid: user.uid, email: user.email, token },
+    // Generate JWT token
+    const token = await generateToken(
+      { userId: newUser.id, username: newUser.username },
+      jwtSecret
+    );
+
+    console.log('Registration successful for user:', newUser.id, newUser.email);
+
+    // Return success with token
+    return NextResponse.json(
+      {
+        success: true,
+        token,
+        userId: newUser.id,
+        user: {
+          id: newUser.id,
+          username: newUser.username,
+          email: newUser.email,
+        },
+      },
       { status: 201 }
     );
   } catch (error: any) {
-    console.error("Registration error:", error);
-    const errorCode = error?.code;
-    const clientMessage = getErrorMessage(errorCode);
-    return Response.json({ error: clientMessage }, { status: 400 });
+    console.error('Registration error:', error);
+    return NextResponse.json(
+      { error: error.message || 'Registration failed' },
+      { status: 500 }
+    );
   }
 }
