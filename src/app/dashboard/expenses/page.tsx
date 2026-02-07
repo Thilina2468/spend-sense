@@ -78,7 +78,7 @@ export default function ExpensesPage() {
               placeholder="Search by description..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 bg-dark-bg border-dark-border text-white placeholder-gray-600"
+              className="pl-10 bg-dark-bg/50 border-dark-border/30 text-white placeholder-gray-600 focus:bg-dark-bg/70 focus:border-neon-blue/50"
             />
           </div>
         </div>
@@ -86,10 +86,10 @@ export default function ExpensesPage() {
         <div>
           <label className="text-sm text-gray-400 mb-2 block">Category</label>
           <Select value={filterCategory} onValueChange={setFilterCategory}>
-            <SelectTrigger className="bg-dark-bg border-dark-border text-white w-full md:w-48">
+            <SelectTrigger className="bg-dark-bg/50 border-dark-border/30 text-white w-full md:w-48">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="bg-dark-card border-dark-border">
+            <SelectContent className="bg-dark-card/40 backdrop-blur-md border-dark-border/30">
               <SelectItem value="all" className="text-white hover:bg-dark-bg">
                 All Categories
               </SelectItem>
@@ -104,7 +104,7 @@ export default function ExpensesPage() {
 
         <Button
           onClick={handleAddClick}
-          className="w-full md:w-auto bg-neon-green hover:bg-neon-green/90 text-black font-semibold flex items-center gap-2"
+          className="w-full md:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-semibold flex items-center gap-2 transition-all-smooth"
         >
           <BiPlus size={20} />
           Add Expense
