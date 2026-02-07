@@ -2,82 +2,74 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { FaGoogle } from 'react-icons/fa'
 import { BiUser, BiEnvelope, BiLockAlt, BiShow, BiHide } from 'react-icons/bi'
 
-export default function SignUpForm({
-  isSignIn,
-  loading,
-  setLoading,
-  toggleForm,
-  setError,
-}: {
-  isSignIn: boolean
-  loading: boolean
-  setLoading: (v: boolean) => void
-  toggleForm: () => void
-  setError: (s: string) => void
-}) {
+export default function SignUpForm({ isSignIn, loading, setLoading, toggleForm, setError }: any) {
   const router = useRouter()
-  const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' })
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setForm((p) => ({ ...p, [name]: value }))
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault()
     setError('')
-    if (form.password !== form.confirmPassword) {
+
+    // Validate passwords match
+    if (password !== confirmPassword) {
       setError('Passwords do not match')
       return
     }
+
     setLoading(true)
+
     try {
-      const res = await fetch('/api/auth/register', {
+      const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: form.name, email: form.email, password: form.password }),
+        body: JSON.stringify({ username, email, password }),
       })
-      const data = await res.json().catch(() => ({}))
-      if (!res.ok) {
-        setError(data?.error || 'Sign up failed')
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        setError(data.error || 'Sign up failed')
+        setLoading(false)
         return
       }
-      localStorage.setItem('authToken', data.token || '')
-      localStorage.setItem('userId', data.userId || '')
+
+      // Save token to localStorage
+      localStorage.setItem('authToken', data.token)
+      localStorage.setItem('userId', data.userId)
+
+      // Redirect to dashboard
       router.push('/dashboard')
-    } catch (err: any) {
-      setError(err?.message || 'An error occurred')
-    } finally {
+    } catch (err) {
+      setError('Something went wrong')
       setLoading(false)
     }
   }
 
+  if (isSignIn) {
+    return null
+  }
+
   return (
-    <div className={`form-container ${!isSignIn ? 'scale-100' : 'scale-0 fixed pointer-events-none'}`}>
+    <div className="form-container scale-100">
       <form onSubmit={handleSubmit} className="form-wrapper">
-        <h2 className="form-title">Sign up</h2>
+        <h2 className="form-title">Create Account</h2>
 
-        <div className="google-icon-wrapper">
-          <div className={`social-icon google-icon`}>
-            <FaGoogle size={22} />
-          </div>
-        </div>
-
-        <p className="form-label">or use your email for registration</p>
+        <p className="form-label">Enter your details to sign up</p>
 
         <div className="input-group">
           <BiUser className="input-icon" />
           <input
             type="text"
-            name="name"
             placeholder="Username"
-            value={form.name}
-            onChange={handleChange}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             className="form-input"
             required
           />
@@ -87,10 +79,9 @@ export default function SignUpForm({
           <BiEnvelope className="input-icon" />
           <input
             type="email"
-            name="email"
             placeholder="Email"
-            value={form.email}
-            onChange={handleChange}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="form-input"
             required
           />
@@ -100,10 +91,9 @@ export default function SignUpForm({
           <BiLockAlt className="input-icon" />
           <input
             type={showPassword ? 'text' : 'password'}
-            name="password"
             placeholder="Password"
-            value={form.password}
-            onChange={handleChange}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="form-input"
             required
           />
@@ -112,7 +102,7 @@ export default function SignUpForm({
             onClick={() => setShowPassword(!showPassword)}
             className="eye-toggle-btn"
           >
-            {showPassword ? <BiShow /> : <BiHide/>}
+            {showPassword ? <BiShow /> : <BiHide />}
           </button>
         </div>
 
@@ -120,10 +110,9 @@ export default function SignUpForm({
           <BiLockAlt className="input-icon" />
           <input
             type={showConfirmPassword ? 'text' : 'password'}
-            name="confirmPassword"
-            placeholder="Confirm password"
-            value={form.confirmPassword}
-            onChange={handleChange}
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             className="form-input"
             required
           />
@@ -132,18 +121,18 @@ export default function SignUpForm({
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             className="eye-toggle-btn"
           >
-            {showConfirmPassword ? <BiShow /> : <BiHide/>}
+            {showConfirmPassword ? <BiShow /> : <BiHide />}
           </button>
         </div>
 
         <button type="submit" className="form-button" disabled={loading}>
-          Sign up
+          {loading ? 'Creating...' : 'Sign Up'}
         </button>
 
         <p className="form-toggle-text">
-          <span>Already have an account? </span>
+          Already have an account?{' '}
           <b onClick={toggleForm} className="form-toggle-link">
-            Sign in here
+            Sign in
           </b>
         </p>
       </form>

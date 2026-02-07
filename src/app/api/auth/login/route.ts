@@ -1,68 +1,43 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { getRequestContext } from '@cloudflare/next-on-pages';
 import { getDb, getUserByEmail } from '@/lib/db';
 import { generateToken, verifyPassword } from '@/lib/auth';
 
-export async function POST(request: NextRequest) {
+export async function POST(req: Request) {
   try {
-    const body = await request.json();
-    const { email, password } = body;
+    const { email, password } = await req.json();
 
-    // Validate input
+    // Check if email and password are provided
     if (!email || !password) {
-      return NextResponse.json(
-        { error: 'Email and password are required' },
-        { status: 400 }
-      );
+      return Response.json({ error: 'Email and password required' }, { status: 400 });
     }
 
-    // Get Cloudflare environment
+    // Get database
     const env = getRequestContext().env as any;
     const db = getDb(env.DB);
-    const jwtSecret = env.JWT_SECRET;
 
     // Find user by email
     const user = await getUserByEmail(db, email);
     if (!user) {
-      return NextResponse.json(
-        { error: 'Invalid email or password' },
-        { status: 401 }
-      );
+      return Response.json({ error: 'Wrong email or password' }, { status: 401 });
     }
 
-    // Verify password
-    const isPasswordValid = await verifyPassword(password, user.passwordHash);
-    if (!isPasswordValid) {
-      return NextResponse.json(
-        { error: 'Invalid email or password' },
-        { status: 401 }
-      );
+    // Check password
+    const passwordOk = await verifyPassword(password, user.passwordHash);
+    if (!passwordOk) {
+      return Response.json({ error: 'Wrong email or password' }, { status: 401 });
     }
 
-    // Generate JWT token
-    const token = await generateToken(
-      { userId: user.id, username: user.username },
-      jwtSecret
-    );
+    // Create token
+    const token = generateToken(user.id, user.username, env.JWT_SECRET);
 
-    console.log('Login successful for user:', user.id, user.email);
-
-    // Return success with token
-    return NextResponse.json({
+    // Return success
+    return Response.json({
       success: true,
       token,
       userId: user.id,
-      user: {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-      },
+      username: user.username
     });
-  } catch (error: any) {
-    console.error('Login error:', error);
-    return NextResponse.json(
-      { error: error.message || 'Login failed' },
-      { status: 500 }
-    );
+  } catch (error) {
+    return Response.json({ error: 'Login failed' }, { status: 500 });
   }
 }
