@@ -65,36 +65,36 @@ export default function ExpensesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-white mb-2">Expenses</h1>
-        <p className="text-gray-400">Manage all your expenses in one place</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Expenses</h1>
+        <p className="text-gray-600">Manage all your expenses in one place</p>
       </div>
 
       <div className="flex flex-col md:flex-row gap-4 items-end">
         <div className="flex-1">
-          <label className="text-sm text-gray-400 mb-2 block">Search</label>
+          <label className="text-sm text-gray-700 mb-2 block">Search</label>
           <div className="relative">
-            <BiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+            <BiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             <Input
               placeholder="Search by description..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 bg-dark-bg/50 border-dark-border/30 text-white placeholder-gray-600 focus:bg-dark-bg/70 focus:border-neon-blue/50"
+              className="pl-10 bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-500 focus:bg-white focus:border-brand-green"
             />
           </div>
         </div>
 
         <div>
-          <label className="text-sm text-gray-400 mb-2 block">Category</label>
+          <label className="text-sm text-gray-700 mb-2 block">Category</label>
           <Select value={filterCategory} onValueChange={setFilterCategory}>
-            <SelectTrigger className="bg-dark-bg/50 border-dark-border/30 text-white w-full md:w-48">
+            <SelectTrigger className="bg-gray-50 border-gray-300 text-gray-900 w-full md:w-48">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="bg-dark-card/40 backdrop-blur-md border-dark-border/30">
-              <SelectItem value="all" className="text-white hover:bg-dark-bg">
+            <SelectContent className="bg-white border-gray-200 shadow-lg">
+              <SelectItem value="all" className="text-gray-900 hover:bg-gray-100">
                 All Categories
               </SelectItem>
               {mockCategories.map((cat) => (
-                <SelectItem key={cat.id} value={cat.name} className="text-white hover:bg-dark-bg">
+                <SelectItem key={cat.id} value={cat.name} className="text-gray-900 hover:bg-gray-100">
                   {cat.icon} {cat.name}
                 </SelectItem>
               ))}
@@ -104,7 +104,7 @@ export default function ExpensesPage() {
 
         <Button
           onClick={handleAddClick}
-          className="w-full md:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-semibold flex items-center gap-2 transition-all-smooth"
+          className="w-full md:w-auto bg-brand-green hover:bg-brand-green-hover text-white font-semibold flex items-center gap-2 transition-all-smooth"
         >
           <BiPlus size={20} />
           Add Expense
@@ -112,7 +112,7 @@ export default function ExpensesPage() {
       </div>
 
       <div>
-        <p className="text-sm text-gray-400 mb-4">{filteredExpenses.length} expenses found</p>
+        <p className="text-sm text-gray-600 mb-4">{filteredExpenses.length} expenses found</p>
         <ExpenseList expenses={filteredExpenses} onEdit={handleEdit} onDelete={handleDeleteClick} />
       </div>
 

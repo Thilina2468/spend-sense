@@ -22,12 +22,12 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-64 bg-dark-card/30 backdrop-blur-sm border-r border-dark-border/50 flex flex-col hidden md:flex">
-      <div className="p-6 border-b border-dark-border/50">
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-neon-green to-neon-cyan bg-clip-text text-transparent">
+    <aside className="fixed left-0 top-0 h-screen w-64 bg-white border-r border-gray-200 shadow-sm flex flex-col hidden md:flex">
+      <div className="p-6 border-b border-gray-200">
+        <h1 className="text-2xl font-bold text-brand-green">
           Spend Sense
         </h1>
-        <p className="text-xs text-gray-500 mt-1">Expense Tracker</p>
+        <p className="text-xs text-gray-600 mt-1">Expense Tracker</p>
       </div>
 
       <nav className="flex-1 p-6 space-y-2 overflow-y-auto scrollbar-dark">
@@ -39,8 +39,8 @@ export default function Sidebar() {
               href={item.href}
               className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all-smooth ${
                 active
-                  ? 'bg-gradient-to-r from-neon-green/20 to-neon-cyan/10 text-neon-green shadow-neon-green'
-                  : 'text-gray-400 hover:text-white hover:bg-white/10'
+                  ? 'bg-brand-green-light text-brand-green border-l-4 border-brand-green'
+                  : 'text-gray-600 hover:text-brand-green hover:bg-gray-50'
               }`}
             >
               {item.icon}
@@ -50,8 +50,8 @@ export default function Sidebar() {
         })}
       </nav>
 
-      <div className="p-6 border-t border-dark-border/50">
-        <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-red-400 hover:bg-dark-bg transition-all-smooth">
+      <div className="p-6 border-t border-gray-200">
+        <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:text-black hover:bg-gray-100 transition-all-smooth">
           <BiLogOut size={20} />
           <span>Logout</span>
         </button>

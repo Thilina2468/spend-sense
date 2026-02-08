@@ -6,7 +6,7 @@ import MobileNav from './components/MobileNav';
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="bg-dark-bg min-h-screen">
+    <div className="bg-gray-50 min-h-screen">
       <MobileNav />
       <Sidebar />
 

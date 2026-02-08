@@ -9,17 +9,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        'brand-green': '#4EA685',
+        'brand-green-hover': '#3d8a6b',
+        'brand-green-light': '#e8f5f0',
         'neon-green': '#22c55e',
         'neon-cyan': '#06b6d4',
         'neon-blue': '#3b82f6',
-        'dark-bg': '#0a0a0a',
-        'dark-card': '#18181b',
-        'dark-border': '#27272a',
+        'dark-bg': '#ffffff',
+        'dark-card': '#ffffff',
+        'dark-border': '#e5e7eb',
       },
       boxShadow: {
         'neon-green': '0 0 10px #22c55e',
         'neon-cyan': '0 0 10px #06b6d4',
         'neon-blue': '0 0 15px #3b82f6',
+        'green-glow': '0 0 10px rgba(78, 166, 133, 0.3)',
+        'green-strong': '0 4px 12px rgba(78, 166, 133, 0.2)',
       },
       keyframes: {
         glow: {

@@ -69,12 +69,12 @@ export default function CategoriesPage() {
     <div className="space-y-6">
       <div className="flex justify-between items-start">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2">Categories</h1>
-          <p className="text-gray-400">Manage your spending categories</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Categories</h1>
+          <p className="text-gray-600">Manage your spending categories</p>
         </div>
         <Button
           onClick={handleAddClick}
-          className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold flex items-center gap-2"
+          className="bg-brand-green hover:bg-brand-green-hover text-white font-semibold flex items-center gap-2"
         >
           <BiPlus size={20} />
           Add Category
@@ -82,8 +82,8 @@ export default function CategoriesPage() {
       </div>
 
       {categories.length === 0 ? (
-        <div className="text-center py-12 bg-dark-card/40 backdrop-blur-md border border-dark-border/30 rounded-xl">
-          <p className="text-gray-400 mb-4">No categories yet. Create one to get started!</p>
+        <div className="text-center py-12 bg-white border border-gray-200 shadow-md rounded-xl">
+          <p className="text-gray-600 mb-4">No categories yet. Create one to get started!</p>
         </div>
       ) : (
         <>
@@ -106,14 +106,14 @@ export default function CategoriesPage() {
           </div>
 
           <div className="flex items-center justify-between mt-6">
-            <div className="text-sm text-gray-400">
+            <div className="text-sm text-gray-600">
               Page {currentPage + 1} of {totalPages} ({categories.length} total)
             </div>
             <div className="flex gap-2">
               <Button
                 onClick={() => setCurrentPage(Math.max(0, currentPage - 1))}
                 disabled={currentPage === 0}
-                className="bg-dark-card/40 border border-dark-border/30 hover:bg-dark-card/60 text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="bg-white border border-gray-200 hover:bg-gray-50 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
                 <BiChevronLeft size={20} />
                 Previous
@@ -121,7 +121,7 @@ export default function CategoriesPage() {
               <Button
                 onClick={() => setCurrentPage(Math.min(totalPages - 1, currentPage + 1))}
                 disabled={currentPage === totalPages - 1}
-                className="bg-dark-card/40 border border-dark-border/30 hover:bg-dark-card/60 text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="bg-white border border-gray-200 hover:bg-gray-50 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
                 Next
                 <BiChevronRight size={20} />

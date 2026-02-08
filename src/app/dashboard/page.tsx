@@ -13,13 +13,13 @@ export default function DashboardPage() {
 
   const recentExpenses = mockExpenses.slice(0, 10);
 
-  const pieColors = ['#22c55e', '#3b82f6', '#a855f7', '#ec4899', '#f59e0b', '#ef4444', '#06b6d4', '#64748b'];
+  const pieColors = ['#4EA685', '#3b82f6', '#a855f7', '#ec4899', '#f59e0b', '#ef4444', '#06b6d4', '#64748b'];
 
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">Welcome back, {mockUser.username}!</h1>
-        <p className="text-gray-400">Here's your spending overview</p>
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Welcome back, {mockUser.username}!</h1>
+        <p className="text-gray-600">Here's your spending overview</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -38,14 +38,15 @@ export default function DashboardPage() {
         <ChartCard title="Monthly Spending Trend">
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={stats.monthlyTrend}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
-              <XAxis stroke="#a1a1aa" />
-              <YAxis stroke="#a1a1aa" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+              <XAxis stroke="#6b7280" tick={{ fill: '#6b7280' }} />
+              <YAxis stroke="#6b7280" tick={{ fill: '#6b7280' }} />
               <Tooltip
-                contentStyle={{ backgroundColor: '#18181b', border: '1px solid #27272a', borderRadius: '8px' }}
-                labelStyle={{ color: '#ffffff' }}
+                contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e5e7eb', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
+                labelStyle={{ color: '#111827' }}
+                itemStyle={{ color: '#6b7280' }}
               />
-              <Line type="monotone" dataKey="amount" stroke="#22c55e" strokeWidth={2} dot={{ fill: '#22c55e', r: 4 }} />
+              <Line type="monotone" dataKey="amount" stroke="#4EA685" strokeWidth={2} dot={{ fill: '#4EA685', r: 4 }} />
             </LineChart>
           </ResponsiveContainer>
         </ChartCard>
@@ -59,8 +60,9 @@ export default function DashboardPage() {
                 ))}
               </Pie>
               <Tooltip
-                contentStyle={{ backgroundColor: '#18181b', border: '1px solid #27272a', borderRadius: '8px' }}
-                labelStyle={{ color: '#ffffff' }}
+                contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e5e7eb', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
+                labelStyle={{ color: '#111827' }}
+                itemStyle={{ color: '#6b7280' }}
               />
             </PieChart>
           </ResponsiveContainer>
@@ -69,7 +71,7 @@ export default function DashboardPage() {
 
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold text-white">Recent Expenses</h2>
+          <h2 className="text-xl font-semibold text-gray-900">Recent Expenses</h2>
         </div>
         <ExpenseList expenses={recentExpenses} onEdit={() => {}} onDelete={() => {}} />
       </div>
